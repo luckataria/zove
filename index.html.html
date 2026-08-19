@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zove Kataria — Cybersecurity &amp; Cloud Security</title>
+<meta name="description" content="Zove Kataria — cybersecurity and cloud security professional specializing in cloud architecture, security operations, and infrastructure automation.">
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#060607;
+    --panel:#0d0d0f;
+    --panel-hi:#141416;
+    --line: rgba(255,255,255,0.09);
+    --line-soft: rgba(255,255,255,0.05);
+    --hi:#f8f8f8;
+    --mid:#a3a3a8;
+    --low:#616166;
+    --red:#ff2138;
+    --red-deep:#a30d1c;
+    --red-soft: rgba(255,33,56,0.13);
+    --red-line: rgba(255,33,56,0.4);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ background:var(--bg); }
+  body{
+    background:var(--bg);
+    color:var(--hi);
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    margin:0;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--red); color:#050505; }
+  ::-webkit-scrollbar{ width:8px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:#242427; border-radius:6px; }
+
+  :focus-visible{ outline:2px solid var(--red); outline-offset:3px; border-radius:3px; }
+
+  h1,h2,h3,.display{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-0.02em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+  .container{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* ---------------- texture ---------------- */
+  .grain{ position:fixed; inset:-100px; z-index:1; pointer-events:none; opacity:0.04; mix-blend-mode:overlay; }
+  .grid-bg{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image: linear-gradient(rgba(255,33,56,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,33,56,0.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, black 30%, transparent 85%);
+  }
+  .glow-blob{
+    position:absolute; border-radius:50%; filter: blur(110px); pointer-events:none; z-index:0;
+  }
+  .scanline{
+    position:absolute; left:0; right:0; height:1px; z-index:1; pointer-events:none;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    box-shadow: 0 0 18px 2px rgba(255,33,56,0.55);
+    animation: scan 6s ease-in-out infinite;
+  }
+  @keyframes scan{ 0%{ top:8%; opacity:0;} 10%{opacity:1;} 50%{ top:82%; opacity:1;} 60%{opacity:0;} 100%{ top:82%; opacity:0;} }
+
+  /* ---------------- scroll progress ---------------- */
+  #progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background: linear-gradient(90deg, var(--red-deep), var(--red));
+    box-shadow: 0 0 12px rgba(255,33,56,0.7);
+    z-index:100; transition: width 0.08s linear;
+  }
+
+  /* ---------------- nav ---------------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:90;
+    background: rgba(6,6,7,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{ height:74px; display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Space Grotesk', sans-serif; font-size:1.1rem; font-weight:700; letter-spacing:-0.01em; }
+  .brand span{ color:var(--red); }
+  .nav-links a{ color:var(--mid); font-size:0.88rem; font-weight:600; transition: color .25s ease; position:relative; text-transform:uppercase; letter-spacing:0.04em; }
+  .nav-links a:hover{ color:var(--hi); }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-5px; width:0; height:2px; background:var(--red);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  #menu-btn{ display:none; }
+  #mobile-menu{ display:none; }
+  @media (max-width: 767px){
+    .nav-links{ display:none; }
+    #menu-btn{ display:flex; }
+    #mobile-menu.open{ display:flex; }
+  }
+
+  /* ---------------- buttons ---------------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:15px 28px; border-radius:8px;
+    font-size:0.9rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+    will-change:transform;
+  }
+  .btn-primary{ background:var(--red); color:#0a0a0a; box-shadow: 0 8px 30px -8px rgba(255,33,56,0.55); }
+  .btn-primary:hover{ background:#ff3c50; box-shadow: 0 10px 36px -6px rgba(255,33,56,0.75); }
+  .btn-ghost{ border:1.5px solid var(--line); color:var(--hi); }
+  .btn-ghost:hover{ border-color:var(--red); color:var(--red); }
+
+  /* ---------------- eyebrow / chip ---------------- */
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.74rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); font-weight:600;
+  }
+  .chip{
+    display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:0.75rem; font-weight:600;
+    padding:8px 15px; border-radius:100px; border:1px solid var(--red-line); color:var(--hi); background: rgba(255,33,56,0.06);
+  }
+  .pulse{ width:7px; height:7px; border-radius:99px; background:var(--red); box-shadow:0 0 0 0 rgba(255,33,56,.65); animation:pulse 2s infinite; }
+  @keyframes pulse{ 70%{ box-shadow:0 0 0 7px rgba(255,33,56,0);} 100%{ box-shadow:0 0 0 0 rgba(255,33,56,0);} }
+
+  /* ---------------- hero ---------------- */
+  .hero-title{
+    font-size: clamp(2.8rem, 6.8vw, 5.6rem);
+    line-height:0.98; font-weight:800; letter-spacing:-0.03em; text-transform:uppercase;
+  }
+  .hero-title .accent{ color:var(--red); text-shadow: 0 0 40px rgba(255,33,56,0.4); }
+
+  /* ---------------- marquee ---------------- */
+  .marquee-wrap{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    overflow:hidden; white-space:nowrap; position:relative; background:var(--panel);
+  }
+  .marquee-track{ display:inline-flex; animation: scroll-x 30s linear infinite; }
+  .marquee-wrap:hover .marquee-track{ animation-play-state: paused; }
+  @keyframes scroll-x{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  .marquee-item{
+    font-family:'JetBrains Mono',monospace; font-size:0.85rem; font-weight:700; color:var(--mid); text-transform:uppercase; letter-spacing:0.04em;
+    padding:20px 28px; display:inline-flex; align-items:center; gap:28px;
+  }
+  .marquee-item .dot{ width:5px; height:5px; background:var(--red); }
+
+  /* ---------------- reveal ---------------- */
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1); }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  /* ---------------- spotlight bento cards ---------------- */
+  .spot{
+    position:relative; border:1px solid var(--line); background:var(--panel);
+    border-radius:16px; overflow:hidden; isolation:isolate;
+  }
+  .spot::before{
+    content:''; position:absolute; inset:0; z-index:0; opacity:0; transition:opacity .4s ease;
+    background: radial-gradient(440px circle at var(--mx,50%) var(--my,50%), rgba(255,33,56,0.16), transparent 60%);
+  }
+  .spot:hover::before{ opacity:1; }
+  .spot:hover{ border-color: var(--red-line); transform: translateY(-3px); }
+  .spot{ transition: transform .35s ease, border-color .35s ease; }
+  .spot > *{ position:relative; z-index:1; }
+
+  .icon-badge{
+    width:46px; height:46px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:var(--red-soft); color:var(--red); border:1px solid var(--red-line);
+  }
+
+  /* ---------------- certification rows ---------------- */
+  .cert-row{ border:1px solid var(--line); background:var(--panel); border-radius:12px; transition:border-color .3s ease, transform .3s ease; }
+  .cert-row:hover{ border-color:var(--red-line); transform: translateX(3px); }
+
+  /* ---------------- approach panel ---------------- */
+  .approach-panel{
+    position:relative; background: radial-gradient(ellipse 100% 100% at 20% 0%, var(--red-deep) 0%, #1a0507 42%, var(--bg) 78%);
+    clip-path: polygon(0 3.5%, 100% 0, 100% 96.5%, 0 100%);
+  }
+
+  /* ---------------- stats ---------------- */
+  .stat-num{ font-family:'Space Grotesk',sans-serif; font-weight:800; font-variant-numeric: tabular-nums; }
+
+  .contact-title{ font-size: clamp(2.4rem, 6vw, 4.8rem); text-transform:uppercase; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    .marquee-track{ animation:none; }
+    .scanline{ display:none; }
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<svg class="grain" width="100%" height="100%">
+  <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#n)"/>
+</svg>
+
+<div id="progress"></div>
+
+<!-- ============ NAV ============ -->
+<header>
+  <div class="container nav-inner">
+    <a href="#hero" class="brand">ZOVE<span>.</span>KATARIA</a>
+    <nav class="nav-links flex items-center gap-9">
+      <a href="#skills">Skills</a>
+      <a href="#certs">Certifications</a>
+      <a href="#about">Approach</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <a href="mailto:Zovekataria@gmail.com" class="btn btn-ghost hidden md:inline-flex" style="padding:11px 20px;">
+        <i data-lucide="mail" class="w-4 h-4"></i> Contact
+      </a>
+      <button id="menu-btn" aria-label="Open menu" aria-expanded="false" class="w-10 h-10 items-center justify-center rounded-full border" style="border-color:var(--line)">
+        <i data-lucide="menu" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden flex-col container pb-6 gap-1" style="border-top:1px solid var(--line-soft)">
+    <a href="#skills" class="py-3 font-semibold" style="color:var(--mid)">Skills</a>
+    <a href="#certs" class="py-3 font-semibold" style="color:var(--mid)">Certifications</a>
+    <a href="#about" class="py-3 font-semibold" style="color:var(--mid)">Approach</a>
+    <a href="#contact" class="py-3 font-semibold" style="color:var(--mid)">Contact</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="relative pt-40 pb-20" style="min-height:92vh; display:flex; flex-direction:column; justify-content:center;">
+  <div class="grid-bg"></div>
+  <div class="glow-blob" style="width:560px; height:560px; background:var(--red); top:-220px; left:-160px; opacity:0.22;"></div>
+  <div class="glow-blob" style="width:420px; height:420px; background:var(--red-deep); bottom:-180px; right:-120px; opacity:0.28;"></div>
+  <div class="scanline"></div>
+
+  <div class="container relative" style="z-index:2;">
+    <div class="chip mb-8">
+      <span class="pulse"></span> ACTIVELY SEEKING CYBERSECURITY &amp; CLOUD ROLES
+    </div>
+
+    <h1 class="hero-title max-w-5xl mb-8">
+      SECURING SYSTEMS <span class="accent">BEFORE</span><br class="hidden sm:block"> THEY BECOME HEADLINES.
+    </h1>
+
+    <p class="max-w-xl mb-10 font-medium" style="color:var(--mid); font-size:1.1rem; line-height:1.75;">
+      I'm <strong style="color:var(--hi); font-weight:700;">Zove Kataria</strong> — a cybersecurity and cloud security professional trained across networking, systems administration, cloud architecture, and detection &amp; response. Precision on offense, discipline on defense.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-16">
+      <a href="mailto:Zovekataria@gmail.com" class="btn btn-primary magnetic">
+        Start a conversation <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+      <a href="#skills" class="btn btn-ghost magnetic">
+        See what I bring <i data-lucide="arrow-down" class="w-4 h-4"></i>
+      </a>
+    </div>
+
+    <div class="flex flex-wrap gap-x-12 gap-y-5 pt-8" style="border-top:1px solid var(--line);">
+      <div>
+        <div class="stat-num text-3xl" style="color:var(--hi);" data-count="13">0</div>
+        <div class="eyebrow mt-1" style="color:var(--low);">TRAINING MODULES</div>
+      </div>
+      <div>
+        <div class="stat-num text-3xl" style="color:var(--hi);" data-count="2">0</div>
+        <div class="eyebrow mt-1" style="color:var(--low);">CLOUD PLATFORMS</div>
+      </div>
+      <div>
+        <div class="stat-num text-3xl" style="color:var(--hi);" data-count="5">0</div>
+        <div class="eyebrow mt-1" style="color:var(--low);">CERT TRACKS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+<!-- ============ SKILLS (curated bento) ============ -->
+<section id="skills" class="py-28">
+  <div class="container">
+    <div class="flex items-end justify-between mb-14 flex-wrap gap-6 reveal">
+      <div>
+        <div class="eyebrow mb-3">// CORE STRENGTHS</div>
+        <h2 style="font-size:clamp(2rem,3.6vw,3rem); text-transform:uppercase;">What I Bring<br>To A Security Team</h2>
+      </div>
+      <p class="max-w-xs text-sm font-semibold" style="color:var(--mid);">Six areas I've gone deepest on — not a full transcript, just where I'm strongest.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-5">
+
+      <div class="spot p-9 md:col-span-4 md:row-span-2 flex flex-col justify-between reveal">
+        <div>
+          <div class="icon-badge mb-6"><i data-lucide="cloud-cog" class="w-5 h-5"></i></div>
+          <h3 class="mb-3" style="font-size:1.8rem; text-transform:uppercase;">Cloud Security<br>Architecture</h3>
+          <p class="font-medium" style="color:var(--mid); line-height:1.8; max-width:40ch;">Designing and reviewing AWS and Azure environments through a security-first lens — IAM governance, network segmentation, encryption, and shared-responsibility boundaries done right.</p>
+        </div>
+        <div class="flex gap-2 mt-8 flex-wrap">
+          <span class="chip">AWS</span><span class="chip">AZURE</span><span class="chip">IAM</span>
+        </div>
+      </div>
+
+      <div class="spot p-8 md:col-span-2 reveal" style="transition-delay:60ms">
+        <div class="icon-badge mb-5"><i data-lucide="radar" class="w-5 h-5"></i></div>
+        <h3 class="mb-2" style="font-size:1.3rem; text-transform:uppercase;">Security Ops &amp; Detection</h3>
+        <p class="text-sm font-medium" style="color:var(--mid); line-height:1.7;">SIEM log analysis, alert triage, and incident investigation workflows.</p>
+      </div>
+
+      <div class="spot p-8 md:col-span-2 reveal" style="transition-delay:120ms">
+        <div class="icon-badge mb-5"><i data-lucide="terminal-square" class="w-5 h-5"></i></div>
+        <h3 class="mb-2" style="font-size:1.3rem; text-transform:uppercase;">Linux &amp; Systems Hardening</h3>
+        <p class="text-sm font-medium" style="color:var(--mid); line-height:1.7;">Administration, patching discipline, and reducing attack surface by default.</p>
+      </div>
+
+      <div class="spot p-8 md:col-span-3 reveal" style="transition-delay:100ms">
+        <div class="icon-badge mb-5"><i data-lucide="workflow" class="w-5 h-5"></i></div>
+        <h3 class="mb-2" style="font-size:1.3rem; text-transform:uppercase;">Infrastructure Automation</h3>
+        <p class="text-sm font-medium" style="color:var(--mid); line-height:1.7;">Python and Terraform for reproducible, security-checked infrastructure as code.</p>
+      </div>
+
+      <div class="spot p-8 md:col-span-3 reveal" style="transition-delay:160ms">
+        <div class="icon-badge mb-5"><i data-lucide="network" class="w-5 h-5"></i></div>
+        <h3 class="mb-2" style="font-size:1.3rem; text-transform:uppercase;">Networking Fundamentals</h3>
+        <p class="text-sm font-medium" style="color:var(--mid); line-height:1.7;">Protocol-level fluency across routing, switching, and secure network design.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICATIONS ============ -->
+<section id="certs" class="py-24" style="border-top:1px solid var(--line-soft); background:var(--panel);">
+  <div class="container">
+    <div class="mb-12 reveal">
+      <div class="eyebrow mb-3">// CREDENTIAL ROADMAP</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.4rem); text-transform:uppercase;">Building Toward Industry<br class="hidden sm:block">-Recognized Certifications</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="cert-row p-6 flex items-center justify-between reveal">
+        <div>
+          <div class="font-bold mb-1">CompTIA Network+</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">N10-009</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+      <div class="cert-row p-6 flex items-center justify-between reveal" style="transition-delay:40ms">
+        <div>
+          <div class="font-bold mb-1">CompTIA Security+</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">SY0-701</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+      <div class="cert-row p-6 flex items-center justify-between reveal" style="transition-delay:80ms">
+        <div>
+          <div class="font-bold mb-1">AWS Solutions Architect</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">Associate · SAA-C03</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+      <div class="cert-row p-6 flex items-center justify-between reveal" style="transition-delay:120ms">
+        <div>
+          <div class="font-bold mb-1">AWS Security</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">Specialty · SCS-C03</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+      <div class="cert-row p-6 flex items-center justify-between reveal" style="transition-delay:160ms">
+        <div>
+          <div class="font-bold mb-1">Azure Security Engineer</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">Associate · AZ-500</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+      <div class="cert-row p-6 flex items-center justify-between reveal" style="transition-delay:200ms">
+        <div>
+          <div class="font-bold mb-1">Kubernetes Security</div>
+          <div class="mono text-xs font-semibold" style="color:var(--low);">Container hardening</div>
+        </div>
+        <i data-lucide="git-commit-vertical" class="w-4 h-4" style="color:var(--red)"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH (bold red panel) ============ -->
+<section id="about" class="approach-panel py-32">
+  <div class="container grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="eyebrow mb-5" style="color:#ffb3ba;">// HOW I WORK</div>
+      <p style="font-family:'Space Grotesk',sans-serif; font-size:clamp(1.6rem,2.8vw,2.3rem); font-weight:700; line-height:1.35; color:#fff; text-transform:uppercase;">
+        Good security work is invisible when it's working — and unmistakable when you skip it.
+      </p>
+    </div>
+    <div class="grid gap-6 reveal" style="transition-delay:80ms">
+      <div class="flex gap-4">
+        <div class="icon-badge shrink-0" style="background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.3); color:#fff;"><i data-lucide="target" class="w-5 h-5"></i></div>
+        <div>
+          <h4 class="font-bold mb-1" style="color:#fff;">Defense-in-depth, not checkbox compliance</h4>
+          <p class="text-sm font-medium" style="color:rgba(255,255,255,0.75); line-height:1.7;">I build layered controls, not audit theater.</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="icon-badge shrink-0" style="background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.3); color:#fff;"><i data-lucide="repeat" class="w-5 h-5"></i></div>
+        <div>
+          <h4 class="font-bold mb-1" style="color:#fff;">Automate the repeatable, scrutinize the rest</h4>
+          <p class="text-sm font-medium" style="color:rgba(255,255,255,0.75); line-height:1.7;">Infrastructure as code frees up attention for the judgment calls.</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="icon-badge shrink-0" style="background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.3); color:#fff;"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+        <div>
+          <h4 class="font-bold mb-1" style="color:#fff;">Always learning in public</h4>
+          <p class="text-sm font-medium" style="color:rgba(255,255,255,0.75); line-height:1.7;">Threats evolve weekly — my training does too.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="py-32">
+  <div class="container text-center reveal">
+    <div class="eyebrow mb-6">// GET IN TOUCH</div>
+    <h2 class="contact-title mb-10" style="letter-spacing:-0.02em;">Let's Build Something<br><span style="color:var(--red); text-shadow:0 0 40px rgba(255,33,56,0.45);">Worth Defending.</span></h2>
+    <a href="mailto:Zovekataria@gmail.com" class="btn btn-primary magnetic" style="padding:19px 36px; font-size:1rem;">
+      <i data-lucide="mail" class="w-4 h-4"></i> Zovekataria@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer class="py-10" style="border-top:1px solid var(--line-soft);">
+  <div class="container flex flex-col sm:flex-row items-center justify-between gap-4">
+    <span class="mono text-xs font-semibold" style="color:var(--low);">© 2026 ZOVE KATARIA</span>
+    <span class="mono text-xs font-semibold" style="color:var(--low);">BUILT WITH CARE, SECURED BY DESIGN</span>
+  </div>
+</footer>
+
+<script>
+lucide.createIcons();
+
+/* ---------- scroll progress ---------- */
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = pct + '%';
+});
+
+/* ---------- mobile menu ---------- */
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+menuBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.innerHTML = open ? '<i data-lucide="x" class="w-4 h-4"></i>' : '<i data-lucide="menu" class="w-4 h-4"></i>';
+  lucide.createIcons();
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  menuBtn.innerHTML = '<i data-lucide="menu" class="w-4 h-4"></i>';
+  lucide.createIcons();
+}));
+
+/* ---------- reveal on scroll ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ---------- spotlight cursor tracking ---------- */
+document.querySelectorAll('.spot').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+
+/* ---------- magnetic buttons ---------- */
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!prefersReduced) {
+  document.querySelectorAll('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * 0.25;
+      const y = (e.clientY - r.top - r.height / 2) * 0.35;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+  });
+}
+
+/* ---------- count-up stats ---------- */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count, 10);
+  const statIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 40));
+        const timer = setInterval(() => {
+          cur += step;
+          if (cur >= target) { cur = target; clearInterval(timer); }
+          el.textContent = cur;
+        }, 30);
+        statIo.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statIo.observe(el);
+});
+
+/* ---------- marquee content ---------- */
+const skills = ['Network+', 'Security+', 'AWS Security', 'Azure Security', 'Linux Hardening', 'Terraform', 'Python', 'SIEM & Detection', 'IAM Governance', 'Kubernetes', 'Incident Response', 'DevSecOps'];
+const marquee = document.getElementById('marquee');
+const buildSet = () => skills.map(s => `<span class="marquee-item">${s}<span class="dot"></span></span>`).join('');
+marquee.innerHTML = buildSet() + buildSet();
+</script>
+
+</body>
+</html>
