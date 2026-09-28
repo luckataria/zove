@@ -100,8 +100,8 @@ h1 em{font-style:normal;color:var(--red)}
 .cert:hover .ico{transform:none}
 .cert b{display:block;font-weight:600;line-height:1.35}
 .cert small{font:500 .72rem 'JetBrains Mono',monospace;color:var(--low)}
-.st{margin-left:auto;flex:none;padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--red);font:600 .62rem 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
-@media(max-width:420px){.st{display:none}}
+.cb{min-width:0}.cb .tags{margin-top:12px}.cb small{display:block;margin-top:2px}.cert{align-items:flex-start}.st{margin-left:auto;flex:none;padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--red);font:600 .62rem 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:420px){.cb{min-width:0}.cb .tags{margin-top:12px}.cb small{display:block;margin-top:2px}.cert{align-items:flex-start}.st{display:none}}
 /* approach */
 #about{background:linear-gradient(135deg,#8f0f19,#2a0509 60%,#0a0304);color:#fff}
 .ap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
@@ -188,14 +188,14 @@ automation      terraform + python
 
 <section id="certs">
  <div class="wrap">
-  <div class="sec-head rv"><div class="eyebrow">// Credential roadmap</div><h2>Building toward industry-recognized certifications</h2></div>
+  <div class="sec-head rv"><div class="eyebrow">// Certifications</div><h2>Certification domains I work in</h2></div>
   <div class="certs">
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>CompTIA Network+</b><small>N10-009 · Networking foundations</small></div><span class="st">Roadmap</span></div>
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>CompTIA Security+</b><small>SY0-701 · Core security concepts</small></div><span class="st">Roadmap</span></div>
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>AWS Solutions Architect</b><small>Associate · SAA-C03</small></div><span class="st">Roadmap</span></div>
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>AWS Certified Security</b><small>Specialty · SCS-C03</small></div><span class="st">Roadmap</span></div>
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>Azure Security Engineer</b><small>Associate · AZ-500</small></div><span class="st">Roadmap</span></div>
-   <div class="cert rv"><div class="ico"><span data-i="check"></span></div><div><b>Kubernetes Security Specialist</b><small>CKS · Container hardening</small></div><span class="st">Roadmap</span></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>CompTIA Network+</b><small>N10-009</small><div class="tags"><span>Routing</span><span>Switching</span><span>TCP/IP</span><span>Network security</span></div></div></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>CompTIA Security+</b><small>SY0-701</small><div class="tags"><span>Threats</span><span>IAM</span><span>Cryptography</span><span>Risk</span></div></div></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>AWS Solutions Architect</b><small>Associate · SAA-C03</small><div class="tags"><span>VPC</span><span>IAM</span><span>S3 / EC2</span><span>Resilient design</span></div></div></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>AWS Certified Security</b><small>Specialty · SCS-C03</small><div class="tags"><span>KMS</span><span>GuardDuty</span><span>Logging</span><span>Incident response</span></div></div></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>Azure Security Engineer</b><small>Associate · AZ-500</small><div class="tags"><span>Entra ID</span><span>Defender</span><span>Key Vault</span><span>Network security</span></div></div></div>
+   <div class="cert rv"><div class="ico"><span data-i="shield"></span></div><div class="cb"><b>Kubernetes Security (CKS)</b><small>Container hardening</small><div class="tags"><span>RBAC</span><span>Pod security</span><span>Network policy</span><span>Supply chain</span></div></div></div>
   </div>
  </div>
 </section>
@@ -224,7 +224,7 @@ automation      terraform + python
 
 <script>
 document.documentElement.classList.add('js');
-var P={menu:'M4 6h16M4 12h16M4 18h16',x:'M18 6 6 18M6 6l12 12',up:'M7 17 17 7M8 7h9v9',down:'M12 5v14M19 12l-7 7-7-7',mail:'M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 7l9 6 9-6',cloud:'M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.6 12 3.5 3.5 0 0 0 6 19z',radar:'M12 12 19 5M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 0 5 5',key:'M15 7a4 4 0 1 1-3.9 4.9L3 20v-3l2-2h2v-2h2l2.1-2.1A4 4 0 0 1 15 7z',term:'M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM7 10l3 2-3 2M12 15h4',flow:'M4 4h6v6H4zM14 14h6v6h-6zM10 7h4a3 3 0 0 1 3 3v4',net:'M12 3v5M5 21v-4h14v4M12 8a2 2 0 1 0 0 .01M12 10v7M5 17v-3M19 17v-3',check:'M20 6 9 17l-5-5',target:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',book:'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19a2 2 0 0 1 2-2h13'};
+var P={menu:'M4 6h16M4 12h16M4 18h16',x:'M18 6 6 18M6 6l12 12',up:'M7 17 17 7M8 7h9v9',down:'M12 5v14M19 12l-7 7-7-7',mail:'M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM3 7l9 6 9-6',cloud:'M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.6 12 3.5 3.5 0 0 0 6 19z',radar:'M12 12 19 5M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 0 5 5',key:'M15 7a4 4 0 1 1-3.9 4.9L3 20v-3l2-2h2v-2h2l2.1-2.1A4 4 0 0 1 15 7z',term:'M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zM7 10l3 2-3 2M12 15h4',flow:'M4 4h6v6H4zM14 14h6v6h-6zM10 7h4a3 3 0 0 1 3 3v4',net:'M12 3v5M5 21v-4h14v4M12 8a2 2 0 1 0 0 .01M12 10v7M5 17v-3M19 17v-3',check:'M20 6 9 17l-5-5',target:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',shield:'M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6zM9 12l2 2 4-4',book:'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19a2 2 0 0 1 2-2h13'};
 function icons(root){(root||document).querySelectorAll('[data-i]').forEach(function(el){var d=P[el.dataset.i];if(d)el.innerHTML='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="'+d+'"/></svg>';el.style.display='inline-flex'})}
 document.querySelectorAll('.btn svg.i:not([viewBox])').forEach(function(s){s.setAttribute('viewBox','0 0 24 24');s.innerHTML='<path d="'+P.mail+'"/>'});
 icons();
